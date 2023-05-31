@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
-        // autoIncrement: true,
+        indexes: [{ fields: ["id"] }],
       },
       name: {
         type: DataTypes.STRING,
@@ -41,18 +41,17 @@ module.exports = (sequelize) => {
         allowNull: false,
         get() {
           const rawValue = this.getDataValue("height");
-          return rawValue? `${rawValue * 10} cm.`: null;
-        }
+          return rawValue ? `${rawValue * 10} cm.` : null;
+        },
       },
       weight: {
         type: DataTypes.INTEGER,
         allowNull: false,
         get() {
           const rowValue = this.getDataValue("weight");
-          return rowValue? `${rowValue * 0.1} kls`: null;
-        }
+          return rowValue ? `${rowValue * 0.1} kls` : null;
+        },
       },
-      
     },
     { timestamps: false }
   );
