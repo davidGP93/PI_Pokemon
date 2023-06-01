@@ -27,3 +27,10 @@
         border: 2px solid red;
     }
 }
+.typesFilter{
+    display: flex;
+    justify-content: center;
+    height: 2rem;
+    gap: 2rem;
+    margin-top: 1rem;
+}

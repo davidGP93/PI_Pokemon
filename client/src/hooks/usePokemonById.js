@@ -10,7 +10,6 @@ export const usePokemonById = () => {
     try {
       const endpoint = `http://localhost:3001/pokemons/${id}`;
       const { data } = await axios.get(endpoint);
-      console.log(data);
       dispatch(getPokemonById(data));
     } catch (error) {
       console.log(error);

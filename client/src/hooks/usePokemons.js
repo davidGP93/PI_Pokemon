@@ -13,10 +13,9 @@ export const usePokemons = () => {
       try {
         const { data } = await axios.get(endpoint);
         if (data.length === 0) throw new Error("Pokemons not found");
-        
         dispatch(getPokemons({payload: data}));
       } catch (error) {
-        console.log(error)
+        console.log(error.message)
       }
     };
     getData();
