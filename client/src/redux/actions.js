@@ -4,6 +4,8 @@ import {
   GET_POKEMON_BY_ID,
   GET_POKEMON_TYPES,
   FILTER_TYPES,
+  FILTER_ORIGIN,
+  ORDERED_NAME_AND_ATTACK,
 } from "./types";
 
 export const getPokemons = (data) => {
@@ -43,11 +45,28 @@ export const getPokemonTypes = (types) => {
 };
 
 export const filterTypes = (type) => {
-  console.log(type)
   return (dispatch) => {
     return dispatch({
       type: FILTER_TYPES,
       payload: type,
+    });
+  };
+};
+
+export const filterOrigin = (origin) => {
+  return (dispatch) => {
+    return dispatch({
+      type: FILTER_ORIGIN,
+      payload: origin,
+    });
+  };
+};
+
+export const orderedByNameAndAttack = (nameOrAttack) => {
+  return (dispatch) => {
+    return dispatch({
+      type: ORDERED_NAME_AND_ATTACK,
+      payload: nameOrAttack,
     });
   };
 };

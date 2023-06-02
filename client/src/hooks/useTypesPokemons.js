@@ -11,7 +11,7 @@ export const useTypesPokemons = () => {
       try {
         const { data } = await axios.get(endpoint);
         if (data.length === 0) throw new Error("Types not found");
-        dispatch(getPokemonTypes( data));
+        dispatch(getPokemonTypes(data));
       } catch (error) {
         console.log(error.message);
       }

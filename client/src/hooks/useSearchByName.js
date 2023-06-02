@@ -9,7 +9,6 @@ export const useSearchByName = () => {
     try {
       const endpoint = `http://localhost:3001/pokemons/?name=${name}`;
       const { data } = await axios.get(endpoint);
-      console.log(data)
       dispatch(getPokemonByName(data));
     } catch (error) {
       console.log(error);

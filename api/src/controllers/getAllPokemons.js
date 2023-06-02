@@ -1,5 +1,5 @@
 const axios = require("axios");
-const URL = "https://pokeapi.co/api/v2/pokemon";
+const URL = "https://pokeapi.co/api/v2/pokemon?limit=10";
 const { Pokemon, Type } = require("../db");
 const { Op } = require("sequelize");
 
@@ -18,7 +18,7 @@ const getAllPokemons = async (req, res) => {
     }
 
     const dbPokemons = await Pokemon.findAll({
-      attributes: ["id", "name", "image"],
+      attributes: ["id", "name", "image", "attack"],
       include: {
         model: Type,
         attributes: ["name"],
@@ -27,7 +27,13 @@ const getAllPokemons = async (req, res) => {
     });
 
     const apiPokemons = await getApiPokemons();
-    const allPokemons = [...formatDbPokemons(dbPokemons), ...apiPokemons];
+    const truncatedApiPokemons = apiPokemons.slice(0, 72);
+    const allPokemons = [
+      {
+        dataBase: [...formatDbPokemons(dbPokemons)],
+        apiData: [...truncatedApiPokemons],
+      },
+    ];
     return res.status(200).json(allPokemons);
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -87,7 +93,8 @@ const formatApiPokemon = (data) => {
     id: data.id,
     name: data.name,
     image: data.sprites.other.dream_world.front_default,
-    type: data.types.map((type) => type.type.name),
+    attack: data.stats?.[1].base_stat,
+    types: data.types.map((type) => type.type.name),
   };
 };
 
@@ -96,6 +103,7 @@ const formatDbPokemons = (dbPokemons) => {
     id: pokemon.id,
     name: pokemon.name,
     image: pokemon.image,
+    attack: pokemon.attack,
     types: pokemon.types.map((type) => type.name),
   }));
 };
