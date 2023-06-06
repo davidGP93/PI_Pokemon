@@ -3,40 +3,82 @@ import { useSelector, useDispatch } from "react-redux";
 import { usePokemons } from "../../hooks/usePokemons";
 import Layout from "../../components/Layout/Layout";
 import homeStyles from "./Home.module.css";
-import { filterOrigin, filterTypes, getPokemonByName, orderedByNameAndAttack } from "../../redux/actions";
+import {
+  addPageNumber,
+  filterOrigin,
+  filterTypes,
+  getPokemonByName,
+  orderedByNameAndAttack,
+  pageNumberButton,
+  prevPageNumber,
+} from "../../redux/actions";
 import { useTypesPokemons } from "../../hooks/useTypesPokemons";
 
 const Home = () => {
   usePokemons();
   useTypesPokemons();
-  const allPokemons = useSelector((state) => state.allPokemons);
+  const allPokemons = useSelector((state) => state.originalPokemons);
   const pokemonByName = useSelector((state) => state.pokemonByName);
   const allTypes = useSelector((state) => state.allTypes);
+  const currentPage = useSelector((state) => state.currentPage);
+  const totalPages = useSelector((state) => state.totalPages);
 
-  console.log(pokemonByName);
+  const pageNumbers = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+  }
 
   const dispatch = useDispatch();
 
   const SHOULD_RENDER_LIST = !pokemonByName;
 
-  const handleClick = () => {
+  const returnPageHandler = () => {
     dispatch(getPokemonByName(null));
   };
 
   const handleTypeChange = (event) => {
-    dispatch(filterTypes(event.target.value));
+    const selectedType = event.target.value;
+    dispatch(filterTypes(selectedType));
   };
 
   const handleOriginChange = (event) => {
-    dispatch(filterOrigin(event.target.value))
-  }
+    dispatch(filterOrigin(event.target.value));
+  };
 
   const handleNameOrAttackChange = (event) => {
-    dispatch(orderedByNameAndAttack(event.target.value))
-  }
+    dispatch(orderedByNameAndAttack(event.target.value));
+  };
+
+  const nextHandler = () => {
+    dispatch(addPageNumber());
+  };
+
+  const prevHandler = () => {
+    dispatch(prevPageNumber());
+  };
+
+  // const onSpecificPage = (pageNumber) => {
+  //   console.log(pageNumber);
+  //   dispatch(pageNumberButton(pageNumber));
+  // };
 
   return (
     <Layout>
+      <h1>Pagina: {currentPage}</h1>
+      <button disabled={currentPage === 1} onClick={prevHandler}>Prev</button>
+      {pageNumbers.length &&
+        pageNumbers.map((pageNumber) => (
+          <button
+            key={pageNumber}
+            // onClick={() => onSpecificPage(pageNumber)}
+            className={`${
+              pageNumber === currentPage ? homeStyles.buttonPageCurrently : ""
+            }`}
+          >
+            {pageNumber}
+          </button>
+        ))}
+      <button disabled={currentPage >= pageNumbers.length}  onClick={nextHandler}>Next</button>
       <div className={homeStyles.typesFilter}>
         <div>
           <p>Select by Type</p>
@@ -60,11 +102,11 @@ const Home = () => {
         <div>
           <p>Ordered by</p>
         </div>
-        <select onChange={handleNameOrAttackChange} >
-            <option value="nameAscendent">Name (Ascendente)</option>
-            <option value="nameDescendent">Name (Descendent)</option>
-            <option value="attackAscendent">Attack (Ascendent)</option>
-            <option value="attackDescendent">Attack (Descendent)</option>
+        <select onChange={handleNameOrAttackChange}>
+          <option value="nameAscendent">Name (Ascendente)</option>
+          <option value="nameDescendent">Name (Descendent)</option>
+          <option value="attackAscendent">Attack (Ascendent)</option>
+          <option value="attackDescendent">Attack (Descendent)</option>
         </select>
       </div>
       <div className={homeStyles.homeContainer}>
@@ -90,9 +132,24 @@ const Home = () => {
       </div>
       {pokemonByName && (
         <div className={homeStyles.allPokemon}>
-          <button onClick={handleClick}>view all pokemon</button>
+          <button onClick={returnPageHandler}>view all pokemon</button>
         </div>
       )}
+      <h1>Pagina: {currentPage}</h1>
+      <button disabled={currentPage === 1} onClick={prevHandler}>Prev</button>
+      {pageNumbers.length &&
+        pageNumbers.map((pageNumber) => (
+          <button
+            key={pageNumber}
+            // onClick={() => onSpecificPage(pageNumber)}
+            className={`${
+              pageNumber === currentPage ? homeStyles.buttonPageCurrently : ""
+            }`}
+          >
+            {pageNumber}
+          </button>
+        ))}
+      <button disabled={currentPage >= pageNumbers.length} onClick={nextHandler}>Next</button>
     </Layout>
   );
 };

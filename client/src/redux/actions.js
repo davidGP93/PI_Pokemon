@@ -6,6 +6,9 @@ import {
   FILTER_TYPES,
   FILTER_ORIGIN,
   ORDERED_NAME_AND_ATTACK,
+  ADD_PAGE_NUMBER,
+  PREV_PAGE_NUMBER,
+  PAGE_NUMBER_BUTTON,
 } from "./types";
 
 export const getPokemons = (data) => {
@@ -70,3 +73,28 @@ export const orderedByNameAndAttack = (nameOrAttack) => {
     });
   };
 };
+
+export const addPageNumber = () => {
+  return (dispatch) => {
+    return dispatch({
+      type: ADD_PAGE_NUMBER,
+    });
+  };
+};
+
+export const prevPageNumber = () => {
+  return (dispatch) => {
+    return dispatch({
+      type: PREV_PAGE_NUMBER,
+    });
+  };
+};
+
+// export const pageNumberButton = (numberPage) => {
+//   return (dispatch) => {
+//     return dispatch({
+//       type: PREV_PAGE_NUMBER,
+//       payload: numberPage,
+//     });
+//   };
+// };

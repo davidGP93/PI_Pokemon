@@ -3,7 +3,6 @@ import cardStyles from "./Card.module.css";
 import { Link } from "react-router-dom";
 
 const Card = ({ id, name, image, types }) => {
-  console.log(typeof types)
   return (
     <div className={cardStyles.cardContainer}>
       <figure>

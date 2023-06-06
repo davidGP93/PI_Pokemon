@@ -1,5 +1,5 @@
 const axios = require("axios");
-const URL = "https://pokeapi.co/api/v2/pokemon?limit=10";
+const URL = "https://pokeapi.co/api/v2/pokemon?limit=500";
 const { Pokemon, Type } = require("../db");
 const { Op } = require("sequelize");
 
@@ -27,15 +27,16 @@ const getAllPokemons = async (req, res) => {
     });
 
     const apiPokemons = await getApiPokemons();
-    const truncatedApiPokemons = apiPokemons.slice(0, 72);
+    // const truncatedApiPokemons = apiPokemons.slice(0, 72);
     const allPokemons = [
       {
         dataBase: [...formatDbPokemons(dbPokemons)],
-        apiData: [...truncatedApiPokemons],
+        apiData: [...apiPokemons],
       },
     ];
     return res.status(200).json(allPokemons);
   } catch (error) {
+    console.log(error.message)
     return res.status(500).json({ error: error.message });
   }
 };
@@ -47,7 +48,7 @@ const getPokemonByName = async (name) => {
         [Op.iLike]: `%${name}%`, // Utiliza Op.iLike para hacer una búsqueda insensible a mayúsculas y minúsculas
       },
     },
-    attributes: ["id", "name", "image"],
+    attributes: ["id", "name", "image", "attack"],
     include: {
       model: Type,
       attributes: ["name"],

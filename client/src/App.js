@@ -6,6 +6,7 @@ import CreatePokemonForm from "./pages/CreatePokemonForm/CreatePokemonForm";
 import Detail from "./components/Detail/Detail";
 
 function App() {
+
   return (
     <div className="App">
       <Routes>

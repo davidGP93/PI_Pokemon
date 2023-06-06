@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import detailStyles from "./Detail.module.css";
 import Layout from "../Layout/Layout";
 import { usePokemonById } from "../../hooks/usePokemonById";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPokemonById } from "../../redux/actions";
 
@@ -19,13 +19,13 @@ const Detail = () => {
 
   const pokemonById = useSelector((state) => state.pokemonById);
 
-  const navigate = useNavigate();
-  const handleBackToHome = () => {
-    navigate("/home");
-  };
+  // const navigate = useNavigate();
+  // const handleBackToHome = () => {
+  //   navigate("/home");
+  // };
   return (
     <Layout>
-      <button onClick={handleBackToHome}>Back to home</button>
+      <button><Link to="/home">Back to home</Link></button>
       {pokemonById ? (
         <section>
           <h2>Name: {pokemonById.name}</h2>

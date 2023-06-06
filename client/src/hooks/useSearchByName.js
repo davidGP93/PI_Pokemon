@@ -9,7 +9,7 @@ export const useSearchByName = () => {
     try {
       const endpoint = `http://localhost:3001/pokemons/?name=${name}`;
       const { data } = await axios.get(endpoint);
-      dispatch(getPokemonByName(data));
+      dispatch(getPokemonByName(Array.isArray(data)? data[0] : data));
     } catch (error) {
       console.log(error);
     }

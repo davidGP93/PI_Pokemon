@@ -1,0 +1,20 @@
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 100%;
+    margin: 0 auto;
+    border: 2px solid #000;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.formContainer-types{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 5px;
+}
+.formContainer button{
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 15px;
+}
