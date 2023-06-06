@@ -1,5 +1,5 @@
 const axios = require("axios");
-const URL = "https://pokeapi.co/api/v2/pokemon?limit=500";
+const URL = "https://pokeapi.co/api/v2/pokemon?limit=200";
 const { Pokemon, Type } = require("../db");
 const { Op } = require("sequelize");
 
@@ -27,7 +27,6 @@ const getAllPokemons = async (req, res) => {
     });
 
     const apiPokemons = await getApiPokemons();
-    // const truncatedApiPokemons = apiPokemons.slice(0, 72);
     const allPokemons = [
       {
         dataBase: [...formatDbPokemons(dbPokemons)],

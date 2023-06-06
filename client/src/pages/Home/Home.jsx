@@ -84,7 +84,7 @@ const Home = () => {
           <p>Select by Type</p>
         </div>
         <select onChange={handleTypeChange}>
-          <option value="allPokemons">all Types</option>
+          <option value="allTypes">all Types</option>
           {allTypes?.map((type, index) => (
             <option key={type.id} value={type.name}>
               {type.name}
@@ -103,6 +103,7 @@ const Home = () => {
           <p>Ordered by</p>
         </div>
         <select onChange={handleNameOrAttackChange}>
+          <option value="orderedNormal">Ordered normal</option>
           <option value="nameAscendent">Name (Ascendente)</option>
           <option value="nameDescendent">Name (Descendent)</option>
           <option value="attackAscendent">Attack (Ascendent)</option>
