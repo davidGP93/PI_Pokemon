@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import { useSelector } from "react-redux";
 import formStyles from "./CreatePokemonForm.module.css";
+import useCreatePokemon from "../../hooks/useCreatePokemon";
 
 const CreatePokemonForm = () => {
+  const { postData } = useCreatePokemon();
+
   const allTypes = useSelector((state) => state.allTypes);
   const initialState = {
     name: "",
-    image: "",
+    image: null,
     life: "",
     attack: null,
     defense: null,
@@ -20,15 +23,43 @@ const CreatePokemonForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    postData(dataPokemon);
+    setDataPokemon(initialState);
   };
 
   const handleInputChange = (event) => {
-    console.log(event.target.value)
-    // console.log(event.taget.value)
-  }
+    const { name, value } = event.target;
+    if (event.target.type === "number") {
+      setDataPokemon({
+        ...dataPokemon,
+        [name]: parseInt(value),
+      });
+    } else {
+      setDataPokemon({
+        ...dataPokemon,
+        [name]: value,
+      });
+    }
+  };
+  console.log(dataPokemon);
+  const handleCheckboxChange = (event) => {
+    const { value, checked } = event.target;
+    if (checked) {
+      setDataPokemon((prevState) => ({
+        ...prevState,
+        types: [...prevState.types, value],
+      }));
+    } else {
+      setDataPokemon((prevState) => ({
+        ...prevState,
+        types: prevState.types.filter((type) => type !== value),
+      }));
+    }
+  };
 
   return (
     <Layout>
+      <h1>Create your pokemon!</h1>
       <form
         onSubmit={handleSubmit}
         className={formStyles.formContainer}
@@ -38,10 +69,10 @@ const CreatePokemonForm = () => {
         <input
           type="text"
           name="name"
-          // value={dataPokemon.name}
+          value={dataPokemon.name}
           onChange={handleInputChange}
         />
-        <label htmlFor="">add an image (URL): </label>
+        <label htmlFor="">Select an image: </label>
         <input
           type="text"
           name="image"
@@ -50,7 +81,7 @@ const CreatePokemonForm = () => {
         />
         <label htmlFor="">Life: </label>
         <input
-          type="text"
+          type="number"
           name="life"
           value={dataPokemon.life}
           onChange={handleInputChange}
@@ -67,6 +98,13 @@ const CreatePokemonForm = () => {
           type="number"
           name="defense"
           value={dataPokemon.defense}
+          onChange={handleInputChange}
+        />
+        <label htmlFor="">Speed: </label>
+        <input
+          type="number"
+          name="speed"
+          value={dataPokemon.speed}
           onChange={handleInputChange}
         />
         <label htmlFor="">Height: </label>
@@ -87,7 +125,13 @@ const CreatePokemonForm = () => {
         <div className={formStyles["formContainer-types"]}>
           {allTypes?.map((type) => (
             <div key={type.name}>
-              <input type="checkbox" name="types" value={type.name} />
+              <input
+                type="checkbox"
+                name="types"
+                value={type.name}
+                checked={dataPokemon.types.includes(type.name)}
+                onChange={handleCheckboxChange}
+              />
               <label htmlFor={type.name}>{type.name}</label>
             </div>
           ))}

@@ -57,10 +57,10 @@ const Home = () => {
     dispatch(prevPageNumber());
   };
 
-  // const onSpecificPage = (pageNumber) => {
-  //   console.log(pageNumber);
-  //   dispatch(pageNumberButton(pageNumber));
-  // };
+  const onSpecificPage = (pageNumber) => {
+    console.log(pageNumber);
+    dispatch(pageNumberButton(pageNumber));
+  };
 
   return (
     <Layout>
@@ -70,7 +70,7 @@ const Home = () => {
         pageNumbers.map((pageNumber) => (
           <button
             key={pageNumber}
-            // onClick={() => onSpecificPage(pageNumber)}
+            onClick={() => onSpecificPage(pageNumber)}
             className={`${
               pageNumber === currentPage ? homeStyles.buttonPageCurrently : ""
             }`}
@@ -142,7 +142,7 @@ const Home = () => {
         pageNumbers.map((pageNumber) => (
           <button
             key={pageNumber}
-            // onClick={() => onSpecificPage(pageNumber)}
+            onClick={() => onSpecificPage(pageNumber)}
             className={`${
               pageNumber === currentPage ? homeStyles.buttonPageCurrently : ""
             }`}

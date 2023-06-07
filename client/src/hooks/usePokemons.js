@@ -8,16 +8,21 @@ export const usePokemons = () => {
   const dispatch = useDispatch();
   const allPokemons = useSelector((state) => state.allPokemons);
 
+  const getData = async () => {
+    try {
+      const { data } = await axios.get(endpoint);
+      if (data.length === 0) throw new Error("Pokemons not found");
+      dispatch(getPokemons({ payload: data }));
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const { data } = await axios.get(endpoint);
-        if (data.length === 0) throw new Error("Pokemons not found");
-        dispatch(getPokemons({ payload: data }));
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
     if (allPokemons.length === 0) getData();
   }, []);
+
+  return {
+    getData
+  }
 };

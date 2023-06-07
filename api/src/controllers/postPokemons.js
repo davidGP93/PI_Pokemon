@@ -1,11 +1,10 @@
 const { Pokemon, Type } = require("../db");
-// const {v4: uuidv4} = require('uuid');
 
 const postPokemons = async (req, res) => {
   try {
     const { name, image, life, attack, defense, speed, height, weight, types } =
       req.body;
-    // console.log(req.body);
+    console.log(req.body);
     if (
       !name ||
       !image ||
@@ -18,7 +17,7 @@ const postPokemons = async (req, res) => {
       !types
     ) {
       return res
-        .status(404)
+        .status(500)
         .json({ message: "Faltan datos por completar en el formulario" });
     }
     const newPokemon = await Pokemon?.findOrCreate({

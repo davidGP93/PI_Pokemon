@@ -90,11 +90,11 @@ export const prevPageNumber = () => {
   };
 };
 
-// export const pageNumberButton = (numberPage) => {
-//   return (dispatch) => {
-//     return dispatch({
-//       type: PREV_PAGE_NUMBER,
-//       payload: numberPage,
-//     });
-//   };
-// };
+export const pageNumberButton = (numberPage) => {
+  return (dispatch) => {
+    return dispatch({
+      type: PAGE_NUMBER_BUTTON,
+      payload: numberPage,
+    });
+  };
+};
