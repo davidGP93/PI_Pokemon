@@ -215,7 +215,7 @@ const rootReducer = (state = initialState, action) => {
       } else {
         tempViewPokemonsNumber = tempPokemonsNumber;
       }
-      const initialIndex = tempCurrentPageNumber * 12
+      const initialIndex = (tempCurrentPageNumber-1) * 12
       const tempInitialPokemonNumber = initialIndex; 
       const tempLastPokemonNumber = initialIndex + 12; 
 
