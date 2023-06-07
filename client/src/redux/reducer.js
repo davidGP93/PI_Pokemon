@@ -165,7 +165,7 @@ const rootReducer = (state = initialState, action) => {
       };
     case PAGE_NUMBER_BUTTON:
       const tempCurrentPageNumber = action.payload;
-      console.log(tempCurrentPageNumber)
+      console.log(tempCurrentPageNumber);
       const tempPokemonsNumber = [...state.allPokemons];
       let tempViewPokemonsNumber = [];
       if (state.currentFilterTypes !== "allTypes") {
@@ -215,9 +215,9 @@ const rootReducer = (state = initialState, action) => {
       } else {
         tempViewPokemonsNumber = tempPokemonsNumber;
       }
-      const initialIndex = (tempCurrentPageNumber-1) * 12
-      const tempInitialPokemonNumber = initialIndex; 
-      const tempLastPokemonNumber = initialIndex + 12; 
+      const initialIndex = (tempCurrentPageNumber - 1) * 12;
+      const tempInitialPokemonNumber = initialIndex;
+      const tempLastPokemonNumber = initialIndex + 12;
 
       return {
         ...state,

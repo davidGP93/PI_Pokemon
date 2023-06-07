@@ -64,51 +64,71 @@ const Home = () => {
 
   return (
     <Layout>
-      <h1>Pagina: {currentPage}</h1>
-      <button disabled={currentPage === 1} onClick={prevHandler}>Prev</button>
-      {pageNumbers.length &&
-        pageNumbers.map((pageNumber) => (
+      <div className={homeStyles["homeContainer-filters"]}>
+        <section className={homeStyles["homeContainer-filtersPager"]}>
+          <h1>Page: {currentPage}</h1>
           <button
-            key={pageNumber}
-            onClick={() => onSpecificPage(pageNumber)}
-            className={`${
-              pageNumber === currentPage ? homeStyles.buttonPageCurrently : ""
-            }`}
+            className={homeStyles["homeContainer-filtersPager__sequenceButton"]}
+            disabled={currentPage === 1}
+            onClick={prevHandler}
           >
-            {pageNumber}
+            Previous
           </button>
-        ))}
-      <button disabled={currentPage >= pageNumbers.length}  onClick={nextHandler}>Next</button>
-      <div className={homeStyles.typesFilter}>
-        <div>
-          <p>Select by Type</p>
-        </div>
-        <select onChange={handleTypeChange}>
-          <option value="allTypes">all Types</option>
-          {allTypes?.map((type, index) => (
-            <option key={type.id} value={type.name}>
-              {type.name}
-            </option>
-          ))}
-        </select>
-        <div>
-          <p>Origin</p>
-        </div>
-        <select onChange={handleOriginChange}>
-          <option value="allPokemons">all pokemons</option>
-          <option value="dataBase">Data Base</option>
-          <option value="apiData">API</option>
-        </select>
-        <div>
-          <p>Ordered by</p>
-        </div>
-        <select onChange={handleNameOrAttackChange}>
-          <option value="orderedNormal">Ordered normal</option>
-          <option value="nameAscendent">Name (Ascendente)</option>
-          <option value="nameDescendent">Name (Descendent)</option>
-          <option value="attackAscendent">Attack (Ascendent)</option>
-          <option value="attackDescendent">Attack (Descendent)</option>
-        </select>
+          {pageNumbers.length &&
+            pageNumbers.map((pageNumber) => (
+              <button
+                key={pageNumber}
+                onClick={() => onSpecificPage(pageNumber)}
+                className={`${
+                  homeStyles["homeContainer-filtersPager__buttonPager"]
+                } ${
+                  pageNumber === currentPage
+                    ? homeStyles["homeContainer-filtersPager__buttonPageActive"]
+                    : ""
+                }`}
+              >
+                {pageNumber}
+              </button>
+            ))}
+          <button
+            className={homeStyles["homeContainer-filtersPager__sequenceButton"]}
+            disabled={currentPage >= pageNumbers.length}
+            onClick={nextHandler}
+          >
+            Next
+          </button>
+        </section>
+        <section className={homeStyles["homeContainer-filterTypes"]}>
+          <div className={homeStyles["homeContainer-filterTypes__types"]}>
+            <h3>Select by type</h3>
+            <select onChange={handleTypeChange}>
+              <option value="allTypes">All Types</option>
+              {allTypes?.map((type, index) => (
+                <option key={type.id} value={type.name}>
+                  {type.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className={homeStyles["homeContainer-filterTypes__types"]}>
+            <h3>Origin</h3>
+            <select onChange={handleOriginChange}>
+              <option value="allPokemons">All pokemons</option>
+              <option value="dataBase">Data Base</option>
+              <option value="apiData">API</option>
+            </select>
+          </div>
+          <div className={homeStyles["homeContainer-filterTypes__types"]}>
+            <h3>Ordered by</h3>
+            <select onChange={handleNameOrAttackChange}>
+              <option value="orderedNormal">Ordered normal</option>
+              <option value="nameAscendent">Name (Ascendente)</option>
+              <option value="nameDescendent">Name (Descendent)</option>
+              <option value="attackAscendent">Attack (Ascendent)</option>
+              <option value="attackDescendent">Attack (Descendent)</option>
+            </select>
+          </div>
+        </section>
       </div>
       <div className={homeStyles.homeContainer}>
         {SHOULD_RENDER_LIST ? (
@@ -136,21 +156,41 @@ const Home = () => {
           <button onClick={returnPageHandler}>view all pokemon</button>
         </div>
       )}
-      <h1>Pagina: {currentPage}</h1>
-      <button disabled={currentPage === 1} onClick={prevHandler}>Prev</button>
-      {pageNumbers.length &&
-        pageNumbers.map((pageNumber) => (
-          <button
-            key={pageNumber}
-            onClick={() => onSpecificPage(pageNumber)}
-            className={`${
-              pageNumber === currentPage ? homeStyles.buttonPageCurrently : ""
-            }`}
-          >
-            {pageNumber}
-          </button>
-        ))}
-      <button disabled={currentPage >= pageNumbers.length} onClick={nextHandler}>Next</button>
+      <section
+        className={`${homeStyles["homeContainer-filters"]} ${homeStyles["homeContainer-filtersPager"]}`}
+      >
+        <h1>Page: {currentPage}</h1>
+        <button
+          className={homeStyles["homeContainer-filtersPager__sequenceButton"]}
+          disabled={currentPage === 1}
+          onClick={prevHandler}
+        >
+          Previous
+        </button>
+        {pageNumbers.length &&
+          pageNumbers.map((pageNumber) => (
+            <button
+              key={pageNumber}
+              onClick={() => onSpecificPage(pageNumber)}
+              className={`${
+                homeStyles["homeContainer-filtersPager__buttonPager"]
+              } ${
+                pageNumber === currentPage
+                  ? homeStyles["homeContainer-filtersPager__buttonPageActive"]
+                  : ""
+              }`}
+            >
+              {pageNumber}
+            </button>
+          ))}
+        <button
+          className={homeStyles["homeContainer-filtersPager__sequenceButton"]}
+          disabled={currentPage >= pageNumbers.length}
+          onClick={nextHandler}
+        >
+          Next
+        </button>
+      </section>
     </Layout>
   );
 };

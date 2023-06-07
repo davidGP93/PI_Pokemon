@@ -2,12 +2,10 @@ import { useState, useRef } from "react";
 import searchStyles from "./SearchBar.module.css";
 import { useSearchByName } from "../../hooks/useSearchByName";
 
-
-
 const SearchBar = () => {
   const [name, setName] = useState("");
   const { getDataByName } = useSearchByName();
-  const searchinput = useRef()
+  const searchinput = useRef();
 
   const handleSearch = () => {
     setName(searchinput.current.value);
@@ -15,7 +13,7 @@ const SearchBar = () => {
 
   const handleSearchPokemon = () => {
     if (name) {
-      getDataByName(name)
+      getDataByName(name);
     }
   };
 

@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import detailStyles from "./Detail.module.css";
 import Layout from "../Layout/Layout";
 import { usePokemonById } from "../../hooks/usePokemonById";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPokemonById } from "../../redux/actions";
+import detailStyles from "./Detail.module.css";
 
 const Detail = () => {
   const { id } = useParams();
@@ -25,28 +25,46 @@ const Detail = () => {
   // };
   return (
     <Layout>
-      <button><Link to="/home">Back to home</Link></button>
-      {pokemonById ? (
-        <section>
-          <h2>Name: {pokemonById.name}</h2>
-          <figure>
-            <img src={pokemonById.image} alt={pokemonById.name} />
-          </figure>
-          <div>
-            <h4>hp: {pokemonById.life}</h4>
-            <h4>attack: {pokemonById.attack}</h4>
-            <h4>defense: {pokemonById.defense}</h4>
-            <h4>speed: {pokemonById.speed}</h4>
-            <h4>height: {pokemonById.height}</h4>
-            <h4>weight: {pokemonById.weight}</h4>
-            <h5>types:</h5>
-            {pokemonById.types.length !== 0 &&
-              pokemonById.types.map((type) => <p>{type}</p>)}
-          </div>
-        </section>
-      ) : (
-        <p>Loading ...</p>
-      )}
+      <section className={detailStyles.generalContainer}>
+        <div>
+          <button className={detailStyles.backHome}>
+            <Link to="/home">Back to home</Link>
+          </button>
+        </div>
+        {pokemonById ? (
+          <section className={detailStyles.detailContainer}>
+            <h2>Name: {pokemonById.name}</h2>
+            <article className={detailStyles["detailContainer-target"]}>
+              <figure>
+                <img src={pokemonById.image} alt={pokemonById.name} />
+              </figure>
+              <div className={detailStyles["detailContainer-target__info"]}>
+                <h4>hp: {pokemonById.life}</h4>
+                <h4>attack: {pokemonById.attack}</h4>
+                <h4>defense: {pokemonById.defense}</h4>
+                <h4>speed: {pokemonById.speed}</h4>
+                <h4>height: {pokemonById.height}</h4>
+                <h4>weight: {pokemonById.weight}</h4>
+                <h5>types:</h5>
+                <div className={detailStyles["detailsContainer-target__contTypes"]}>
+                  {pokemonById.types.length !== 0 &&
+                    pokemonById.types.map((type) => (
+                      <p
+                        className={
+                          detailStyles["detailsContainer-target__types"]
+                        }
+                      >
+                        {type}
+                      </p>
+                    ))}
+                </div>
+              </div>
+            </article>
+          </section>
+        ) : (
+          <p>Loading ...</p>
+        )}
+      </section>
     </Layout>
   );
 };
