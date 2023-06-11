@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Layout from "../Layout/Layout";
 import { usePokemonById } from "../../hooks/usePokemonById";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getPokemonById } from "../../redux/actions";
 import detailStyles from "./Detail.module.css";
@@ -19,10 +19,6 @@ const Detail = () => {
 
   const pokemonById = useSelector((state) => state.pokemonById);
 
-  // const navigate = useNavigate();
-  // const handleBackToHome = () => {
-  //   navigate("/home");
-  // };
   return (
     <Layout>
       <section className={detailStyles.generalContainer}>
@@ -48,8 +44,9 @@ const Detail = () => {
                 <h5>types:</h5>
                 <div className={detailStyles["detailsContainer-target__contTypes"]}>
                   {pokemonById.types.length !== 0 &&
-                    pokemonById.types.map((type) => (
+                    pokemonById.types.map((type, index) => (
                       <p
+                        key={index}
                         className={
                           detailStyles["detailsContainer-target__types"]
                         }

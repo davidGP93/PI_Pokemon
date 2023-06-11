@@ -14,7 +14,7 @@ const Card = ({ id, name, image, types }) => {
         </p>
           <h5>types:</h5>
         <div className={cardStyles['cardContainer-info__types']}>
-          {types && types.length !== 0 ? types.map((type) => <p >{type}</p>) : 'this pokemon have not types'}
+          {types && types.length !== 0 ? types.map((type, index) => <p key={index} >{type}</p>) : 'this pokemon have not types'}
         </div>
         <button><Link to={`/detail/${id}`} className="Link">VIEW DETAILS</Link></button>
       </div>

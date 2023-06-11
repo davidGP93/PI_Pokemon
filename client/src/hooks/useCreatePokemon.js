@@ -1,11 +1,10 @@
 import axios from "axios";
-import React from "react";
 import { usePokemons } from "./usePokemons";
 import { useNavigate } from "react-router-dom";
 
 export const useCreatePokemon = () => {
   const endpoint = "http://localhost:3001/pokemons";
-  const {getData} = usePokemons()
+  const { getData } = usePokemons();
   const navigate = useNavigate();
 
   const postData = async (dataPokemon) => {
@@ -15,8 +14,8 @@ export const useCreatePokemon = () => {
         method: "POST",
         data: dataPokemon,
       });
-      navigate("/home")
-      getData()
+      navigate("/home");
+      getData();
       return response;
     } catch (error) {
       console.log(error);

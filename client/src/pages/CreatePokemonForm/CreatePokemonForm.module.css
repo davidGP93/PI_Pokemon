@@ -1,10 +1,18 @@
 .generalFormContainer{
     position: relative;
+    width: 600px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 20px;
+    background-color: aliceblue;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+.generalFormContainer h1{
+    text-transform: uppercase;
+    margin-top: 10px;
 }
 .formContainer{
     display: flex;
