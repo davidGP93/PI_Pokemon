@@ -44,10 +44,28 @@ const rootReducer = (state = initialState, action) => {
       const tempCurrentPage = state.currentPage + 1;
       const tempPokemons = [...state.allPokemons];
       let tempViewPokemons = [];
+
       if (state.currentFilterTypes !== "allTypes") {
         tempViewPokemons = tempPokemons.filter((pokemon) =>
           pokemon.types.includes(state.currentFilterTypes)
         );
+
+        if (state.currentFilterOrigin !== "allPokemons") {
+          const pokemonsIdString = tempPokemons.filter(
+            (pokemon) => typeof pokemon.id === "string"
+          );
+          const pokemonsIdNumber = tempPokemons.filter(
+            (pokemon) => typeof pokemon.id === "number"
+          );
+          tempViewPokemons =
+            state.currentFilterOrigin === "apiData"
+              ? [...pokemonsIdNumber].filter((pokemon) =>
+                  pokemon.types.includes(state.currentFilterTypes)
+                )
+              : [...pokemonsIdString].filter((pokemon) =>
+                  pokemon.types.includes(state.currentFilterTypes)
+                );
+        }
       } else if (state.currentFilterNameAndAttack !== "orderedNormal") {
         const copyFilterNameAndAttack = [...tempPokemons];
         const orderedNameAscendent = [...copyFilterNameAndAttack].sort(
@@ -84,8 +102,21 @@ const rootReducer = (state = initialState, action) => {
         const pokemonsIdNumber = tempPokemons.filter(
           (pokemon) => typeof pokemon.id === "number"
         );
+        if (state.currentFilterTypes !== "allTypes") {
+          let filterTypesByApi = [...pokemonsIdNumber].filter((pokemon) =>
+            pokemon.types.includes(state.currentFilterTypes)
+          );
+          let filterTypesByDataBase = [...pokemonsIdNumber].filter((pokemon) =>
+            pokemon.types.includes(state.currentFilterTypes)
+          );
+          tempViewPokemons =
+            state.currentFilterOrigin === "apiData"
+              ? filterTypesByApi
+              : filterTypesByDataBase;
+        }
+
         tempViewPokemons =
-          state.currentFilterOrigin === "API"
+          state.currentFilterOrigin === "apiData"
             ? pokemonsIdString
             : pokemonsIdNumber;
       } else {
@@ -106,10 +137,29 @@ const rootReducer = (state = initialState, action) => {
       const prevCurrentPage = state.currentPage - 1;
       const tempPokemons2 = [...state.allPokemons];
       let tempPrevPokemons = [];
+
       if (state.currentFilterTypes !== "allTypes") {
         tempPrevPokemons = tempPokemons2.filter((pokemon) =>
           pokemon.types.includes(state.currentFilterTypes)
         );
+
+        if (state.currentFilterOrigin !== "allPokemons") {
+          const pokemonsIdString = tempPokemons2.filter(
+            (pokemon) => typeof pokemon.id === "string"
+          );
+          const pokemonsIdNumber = tempPokemons2.filter(
+            (pokemon) => typeof pokemon.id === "number"
+          );
+
+          tempPrevPokemons =
+            state.currentFilterOrigin === "apiData"
+              ? [...pokemonsIdNumber].filter((pokemon) =>
+                  pokemon.types.includes(state.currentFilterTypes)
+                )
+              : [...pokemonsIdString].filter((pokemon) =>
+                  pokemon.types.includes(state.currentFilterTypes)
+                );
+        }
       } else if (state.currentFilterNameAndAttack !== "orderedNormal") {
         const copyFilterNameAndAttack = [...tempPokemons2];
         const orderedNameAscendent = [...copyFilterNameAndAttack].sort(
@@ -146,11 +196,39 @@ const rootReducer = (state = initialState, action) => {
         const pokemonsIdNumber = tempPokemons2.filter(
           (pokemon) => typeof pokemon.id === "number"
         );
+
+        if (state.currentFilterTypes !== "allTypes") {
+          let filterTypesByApi = [...pokemonsIdNumber].filter((pokemon) =>
+            pokemon.types.includes(state.currentFilterTypes)
+          );
+          let filterTypesByDataBase = [...pokemonsIdNumber].filter((pokemon) =>
+            pokemon.types.includes(state.currentFilterTypes)
+          );
+          tempPrevPokemons =
+            state.currentFilterOrigin === "apiData"
+              ? filterTypesByApi
+              : filterTypesByDataBase;
+        }
         tempPrevPokemons =
-          state.currentFilterOrigin === "API"
+          state.currentFilterOrigin === "apiData"
             ? pokemonsIdString
             : pokemonsIdNumber;
-      } else {
+      }
+      // else if(state.currentFilterOrigin !== "allPokemons" && state.currentFilterTypes !== "allTypes"){
+      //   const pokemonsIdString = tempPokemons2.filter(
+      //     (pokemon) => typeof pokemon.id === "string"
+      //   );
+      //   const pokemonsIdNumber = tempPokemons2.filter(
+      //     (pokemon) => typeof pokemon.id === "number"
+      //   );
+      //   let filterTypesByApi = pokemonsIdNumber.filter(pokemon => pokemon.types.includes(state.currentFilterTypes))
+      //   let filterTypesByDataBase = pokemonsIdString.filter(pokemon => pokemon.types.includes(state.currentFilterTypes))
+
+      //   tempPrevPokemons = state.currentFilterOrigin === 'API'
+      //   ? filterTypesByDataBase
+      //   : filterTypesByApi
+      // }
+      else {
         tempPrevPokemons = tempPokemons2;
       }
       const prevInitialPokemon = (prevCurrentPage - 1) * 12; //12
@@ -165,13 +243,30 @@ const rootReducer = (state = initialState, action) => {
       };
     case PAGE_NUMBER_BUTTON:
       const tempCurrentPageNumber = action.payload;
-      console.log(tempCurrentPageNumber);
       const tempPokemonsNumber = [...state.allPokemons];
+      const pokemonsIdStringPage = tempPokemonsNumber.filter(
+        (pokemon) => typeof pokemon.id === "string"
+      );
+      const pokemonsIdNumberPage = tempPokemonsNumber.filter(
+        (pokemon) => typeof pokemon.id === "number"
+      );
       let tempViewPokemonsNumber = [];
+
       if (state.currentFilterTypes !== "allTypes") {
         tempViewPokemonsNumber = tempPokemonsNumber.filter((pokemon) =>
           pokemon.types.includes(state.currentFilterTypes)
         );
+
+        if (state.currentFilterOrigin !== "allPokemons") {
+          tempViewPokemonsNumber =
+            state.currentFilterOrigin === "apiData"
+              ? [...pokemonsIdNumberPage].filter((pokemon) =>
+                  pokemon.types.includes(state.currentFilterTypes)
+                )
+              : [...pokemonsIdStringPage].filter((pokemon) =>
+                  pokemon.types.includes(state.currentFilterTypes)
+                );
+        }
       } else if (state.currentFilterNameAndAttack !== "orderedNormal") {
         const copyFilterNameAndAttack = [...tempPokemonsNumber];
         const orderedNameAscendent = [...copyFilterNameAndAttack].sort(
@@ -202,22 +297,29 @@ const rootReducer = (state = initialState, action) => {
 
         tempViewPokemonsNumber = tempOrderedByNameOrAttack;
       } else if (state.currentFilterOrigin !== "allPokemons") {
-        const pokemonsIdString = tempPokemonsNumber.filter(
-          (pokemon) => typeof pokemon.id === "string"
-        );
-        const pokemonsIdNumber = tempPokemonsNumber.filter(
-          (pokemon) => typeof pokemon.id === "number"
-        );
+        if (state.currentFilterTypes !== "allTypes") {
+          let filterTypesByApi = [...pokemonsIdNumberPage].filter((pokemon) =>
+            pokemon.types.includes(state.currentFilterTypes)
+          );
+          let filterTypesByDataBase = [...pokemonsIdStringPage].filter(
+            (pokemon) => pokemon.types.includes(state.currentFilterTypes)
+          );
+          tempViewPokemonsNumber =
+            state.currentFilterOrigin === "apiData"
+              ? filterTypesByApi
+              : filterTypesByDataBase;
+        }
         tempViewPokemonsNumber =
-          state.currentFilterOrigin === "API"
-            ? pokemonsIdString
-            : pokemonsIdNumber;
+          state.currentFilterOrigin === "apiData"
+            ? pokemonsIdNumberPage
+            : pokemonsIdStringPage;
       } else {
         tempViewPokemonsNumber = tempPokemonsNumber;
       }
       const initialIndex = (tempCurrentPageNumber - 1) * 12;
       const tempInitialPokemonNumber = initialIndex;
       const tempLastPokemonNumber = initialIndex + 12;
+      console.log(tempViewPokemonsNumber);
 
       return {
         ...state,
@@ -244,6 +346,12 @@ const rootReducer = (state = initialState, action) => {
       };
     case FILTER_TYPES:
       const allPokemonsCopy = [...state.allPokemons];
+      const pokemonsIdString = allPokemonsCopy.filter(
+        (pokemon) => typeof pokemon.id === "string"
+      );
+      const pokemonsIdNumber = allPokemonsCopy.filter(
+        (pokemon) => typeof pokemon.id === "number"
+      );
       let tempFilteredByTypes = [];
       if (action.payload !== "allTypes") {
         tempFilteredByTypes = allPokemonsCopy.filter((pokemon) =>
@@ -252,8 +360,41 @@ const rootReducer = (state = initialState, action) => {
       } else {
         tempFilteredByTypes = allPokemonsCopy;
       }
+
+      if (state.currentFilterOrigin !== "allPokemons") {
+        let filterTypesByApi = pokemonsIdNumber.filter((pokemon) =>
+          pokemon.types.includes(action.payload)
+        );
+        let filterTypesByDataBase = pokemonsIdString.filter((pokemon) =>
+          pokemon.types.includes(action.payload)
+        );
+        if (state.currentFilterOrigin === "apiData")
+          tempFilteredByTypes = filterTypesByApi;
+        else if (state.currentFilterOrigin === "dataBase")
+          tempFilteredByTypes = filterTypesByDataBase;
+        else tempFilteredByTypes = allPokemonsCopy;
+
+        // tempFilteredByTypes = state.currentFilterOrigin === 'apiData'
+        // ? filterTypesByApi
+        // : filterTypesByDataBase;
+      }
+      if (
+        action.payload === "allTypes" &&
+        state.currentFilterOrigin === "dataBase"
+      ) {
+        tempFilteredByTypes = pokemonsIdString;
+      }
+      if (
+        action.payload === "allTypes" &&
+        state.currentFilterOrigin === "apiData"
+      ) {
+        tempFilteredByTypes = pokemonsIdNumber;
+      }
+
       const tempPageByTypes = Math.ceil(tempFilteredByTypes.length / 12);
       const tempSlice = tempFilteredByTypes.slice(0, 12);
+      console.log("-------tempSlice---------");
+      console.log(tempSlice);
       return {
         ...state,
         originalPokemons: tempSlice,
@@ -279,8 +420,29 @@ const rootReducer = (state = initialState, action) => {
         tempFilteredByOrigin = copyAllPokemons;
       }
 
+      if (state.currentFilterTypes !== "allTypes") {
+        let filterTypesByApi = tempFilteredNumberId.filter((pokemon) =>
+          pokemon.types.includes(state.currentFilterTypes)
+        );
+        let filterTypesByDataBase = tempFilteredStringId.filter((pokemon) =>
+          pokemon.types.includes(state.currentFilterTypes)
+        );
+        let filteredTypesByAll = copyAllPokemons.filter((pokemon) =>
+          pokemon.types.includes(state.currentFilterTypes)
+        );
+
+        if (action.payload === "apiData")
+          tempFilteredByOrigin = filterTypesByApi;
+        else if (action.payload === "dataBase")
+          tempFilteredByOrigin = filterTypesByDataBase;
+        else tempFilteredByOrigin = filteredTypesByAll;
+      }
+
       const tempPageByOrigin = Math.ceil(tempFilteredByOrigin.length / 12);
       const tempSliceOrigin = tempFilteredByOrigin.slice(0, 12);
+      console.log(tempSliceOrigin);
+      console.log("-----state.currentorigin-----");
+      console.log(state.currentFilterOrigin);
       return {
         ...state,
         originalPokemons: tempSliceOrigin,

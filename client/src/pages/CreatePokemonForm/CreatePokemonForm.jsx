@@ -45,7 +45,11 @@ const CreatePokemonForm = () => {
             onBlur={handleBlur}
             onChange={handleInputChange}
           />
-          {errors.name && <p>{errors.name}</p>}
+          {errors.name && (
+            <h6 className={formStyles["formContainer-validationMessage"]}>
+              {errors.name}
+            </h6>
+          )}
           <label htmlFor="">Select an image: </label>
           <input
             type="text"
@@ -56,7 +60,11 @@ const CreatePokemonForm = () => {
             onBlur={handleBlur}
             onChange={handleInputChange}
           />
-          {errors.image && <p>{errors.image}</p>}
+          {errors.image && (
+            <h6 className={formStyles["formContainer-validationMessage"]}>
+              {errors.image}
+            </h6>
+          )}
 
           <label htmlFor="">Life: </label>
           <input
@@ -68,7 +76,11 @@ const CreatePokemonForm = () => {
             onBlur={handleBlur}
             onChange={handleInputChange}
           />
-          {errors.life && <p>{errors.life}</p>}
+          {errors.life && (
+            <h6 className={formStyles["formContainer-validationMessage"]}>
+              {errors.life}
+            </h6>
+          )}
           <label htmlFor="">Attack: </label>
           <input
             type="number"
@@ -79,7 +91,11 @@ const CreatePokemonForm = () => {
             onBlur={handleBlur}
             onChange={handleInputChange}
           />
-          {errors.attack && <p>{errors.attack}</p>}
+          {errors.attack && (
+            <h6 className={formStyles["formContainer-validationMessage"]}>
+              {errors.attack}
+            </h6>
+          )}
           <label htmlFor="">Defense: </label>
           <input
             type="number"
@@ -90,7 +106,11 @@ const CreatePokemonForm = () => {
             onBlur={handleBlur}
             onChange={handleInputChange}
           />
-          {errors.defense && <p>{errors.defense}</p>}
+          {errors.defense && (
+            <h6 className={formStyles["formContainer-validationMessage"]}>
+              {errors.defense}
+            </h6>
+          )}
           <label htmlFor="">Speed: </label>
           <input
             type="number"
@@ -101,7 +121,11 @@ const CreatePokemonForm = () => {
             onBlur={handleBlur}
             onChange={handleInputChange}
           />
-          {errors.speed && <p>{errors.speed}</p>}
+          {errors.speed && (
+            <h6 className={formStyles["formContainer-validationMessage"]}>
+              {errors.speed}
+            </h6>
+          )}
           <label htmlFor="">Height: </label>
           <input
             type="number"
@@ -112,7 +136,11 @@ const CreatePokemonForm = () => {
             onBlur={handleBlur}
             onChange={handleInputChange}
           />
-          {errors.height && <p>{errors.height}</p>}
+          {errors.height && (
+            <h6 className={formStyles["formContainer-validationMessage"]}>
+              {errors.height}
+            </h6>
+          )}
           <label htmlFor="">Weight: </label>
           <input
             type="number"
@@ -123,9 +151,13 @@ const CreatePokemonForm = () => {
             onBlur={handleBlur}
             onChange={handleInputChange}
           />
-          {errors.weight && <p>{errors.weight}</p>}
+          {errors.weight && (
+            <h6 className={formStyles["formContainer-validationMessage"]}>
+              {errors.weight}
+            </h6>
+          )}
           <div>
-            <label>select the types covered by the pokemon</label>
+            <label className={formStyles["formContainer-typeMessage"]} >select the types covered by the pokemon</label>
 
             <div className={formStyles["formContainer-types"]}>
               {allTypes?.map((type) => (
@@ -142,7 +174,11 @@ const CreatePokemonForm = () => {
                 </div>
               ))}
             </div>
-            {errors.types && <p>{errors.types}</p>}
+            {errors.types && (
+              <h6 className={formStyles["formContainer-validationMessage"]}>
+                {errors.types}
+              </h6>
+            )}
           </div>
           <button type="submit" disabled={!isFormValid}>
             Create pokemon
