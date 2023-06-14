@@ -58,7 +58,6 @@ const Home = () => {
   };
 
   const onSpecificPage = (pageNumber) => {
-    console.log(pageNumber);
     dispatch(pageNumberButton(pageNumber));
   };
 

@@ -66,72 +66,72 @@ const rootReducer = (state = initialState, action) => {
                   pokemon.types.includes(state.currentFilterTypes)
                 );
         }
+      }
+      if (
+        state.currentFilterTypes !== "allTypes" &&
+        state.currentFilterNameAndAttack !== "orderedNormal"
+      ) {
+        let filteredByTypes = [...tempPokemons].filter((pokemon) =>
+          pokemon.types.includes(state.currentFilterTypes)
+        );
+        if (state.currentFilterNameAndAttack === "nameAscendent") {
+          tempViewPokemons = [...filteredByTypes].sort((pokemonA, pokemonB) =>
+            pokemonA.name.localeCompare(pokemonB.name)
+          );
+        } else if (state.currentFilterNameAndAttack === "nameDescendent") {
+          tempViewPokemons = [...filteredByTypes].sort((pokemonA, pokemonB) =>
+            pokemonB.name.localeCompare(pokemonA.name)
+          );
+        } else if (state.currentFilterNameAndAttack === "attackAscendent") {
+          tempViewPokemons = [...filteredByTypes].sort(
+            (pokemonA, pokemonB) => pokemonA.attack - pokemonB.attack
+          );
+        } else if (state.currentFilterNameAndAttack === "attackDescendent") {
+          tempViewPokemons = [...filteredByTypes].sort(
+            (pokemonA, pokemonB) => pokemonB.attack - pokemonA.attack
+          );
+        } else {
+          tempViewPokemons = [...filteredByTypes];
+        }
       } else if (state.currentFilterNameAndAttack !== "orderedNormal") {
-        const copyFilterNameAndAttack = [...tempPokemons];
-        const orderedNameAscendent = [...copyFilterNameAndAttack].sort(
+        const orderedNameAscendent = [...tempPokemons].sort(
           (pokemonA, pokemonB) => pokemonA.name.localeCompare(pokemonB.name)
         );
-        const orderedNameDecendent = [...copyFilterNameAndAttack].sort(
+        const orderedNameDecendent = [...tempPokemons].sort(
           (pokemonA, pokemonB) => pokemonB.name.localeCompare(pokemonA.name)
         );
-        const orderedAttackAscendent = [...copyFilterNameAndAttack].sort(
+        const orderedAttackAscendent = [...tempPokemons].sort(
           (pokemonA, pokemonB) => pokemonA.attack - pokemonB.attack
         );
-        const orderedAttackDescendent = [...copyFilterNameAndAttack].sort(
+        const orderedAttackDescendent = [...tempPokemons].sort(
           (pokemonA, pokemonB) => pokemonB.attack - pokemonA.attack
         );
-        let tempOrderedByNameOrAttack = [];
 
         if (state.currentFilterNameAndAttack === "nameAscendent") {
-          tempOrderedByNameOrAttack = orderedNameAscendent;
+          tempViewPokemons = orderedNameAscendent;
         } else if (state.currentFilterNameAndAttack === "nameDescendent") {
-          tempOrderedByNameOrAttack = orderedNameDecendent;
+          tempViewPokemons = orderedNameDecendent;
         } else if (state.currentFilterNameAndAttack === "attackAscendent") {
-          tempOrderedByNameOrAttack = orderedAttackAscendent;
+          tempViewPokemons = orderedAttackAscendent;
         } else if (state.currentFilterNameAndAttack === "attackDescendent") {
-          tempOrderedByNameOrAttack = orderedAttackDescendent;
+          tempViewPokemons = orderedAttackDescendent;
         } else {
-          tempOrderedByNameOrAttack = copyFilterNameAndAttack;
+          tempViewPokemons = tempPokemons;
         }
-
-        tempViewPokemons = tempOrderedByNameOrAttack;
-      } else if (state.currentFilterOrigin !== "allPokemons") {
-        const pokemonsIdString = tempPokemons.filter(
-          (pokemon) => typeof pokemon.id === "string"
-        );
-        const pokemonsIdNumber = tempPokemons.filter(
-          (pokemon) => typeof pokemon.id === "number"
-        );
-        if (state.currentFilterTypes !== "allTypes") {
-          let filterTypesByApi = [...pokemonsIdNumber].filter((pokemon) =>
-            pokemon.types.includes(state.currentFilterTypes)
-          );
-          let filterTypesByDataBase = [...pokemonsIdNumber].filter((pokemon) =>
-            pokemon.types.includes(state.currentFilterTypes)
-          );
-          tempViewPokemons =
-            state.currentFilterOrigin === "apiData"
-              ? filterTypesByApi
-              : filterTypesByDataBase;
-        }
-
-        tempViewPokemons =
-          state.currentFilterOrigin === "apiData"
-            ? pokemonsIdString
-            : pokemonsIdNumber;
       } else {
         tempViewPokemons = tempPokemons;
       }
       const tempInitialPokemon = state.currentPage * 12; //12
       const tempLastPokemon = tempCurrentPage * 12; //24
-
+      const tempSliceViewPokemons = tempViewPokemons.slice(
+        tempInitialPokemon,
+        tempLastPokemon
+      );
+      console.log(tempSliceViewPokemons);
       return {
         ...state,
         currentPage: tempCurrentPage,
-        originalPokemons: tempViewPokemons.slice(
-          tempInitialPokemon,
-          tempLastPokemon
-        ),
+        originalPokemons: tempSliceViewPokemons,
       };
     case PREV_PAGE_NUMBER:
       const prevCurrentPage = state.currentPage - 1;
@@ -160,6 +160,30 @@ const rootReducer = (state = initialState, action) => {
                   pokemon.types.includes(state.currentFilterTypes)
                 );
         }
+      }
+      if (state.currentFilterTypes !== "allTypes") {
+        let filteredByTypes = [...tempPokemons2].filter((pokemon) =>
+          pokemon.types.includes(state.currentFilterTypes)
+        );
+        if (state.currentFilterNameAndAttack === "nameAscendent") {
+          tempPrevPokemons = [...filteredByTypes].sort((pokemonA, pokemonB) =>
+            pokemonA.name.localeCompare(pokemonB.name)
+          );
+        } else if (state.currentFilterNameAndAttack === "nameDescendent") {
+          tempPrevPokemons = [...filteredByTypes].sort((pokemonA, pokemonB) =>
+            pokemonB.name.localeCompare(pokemonA.name)
+          );
+        } else if (state.currentFilterNameAndAttack === "attackAscendent") {
+          tempPrevPokemons = [...filteredByTypes].sort(
+            (pokemonA, pokemonB) => pokemonA.attack - pokemonB.attack
+          );
+        } else if (state.currentFilterNameAndAttack === "attackDescendent") {
+          tempPrevPokemons = [...filteredByTypes].sort(
+            (pokemonA, pokemonB) => pokemonB.attack - pokemonA.attack
+          );
+        } else {
+          tempPrevPokemons = [...filteredByTypes];
+        }
       } else if (state.currentFilterNameAndAttack !== "orderedNormal") {
         const copyFilterNameAndAttack = [...tempPokemons2];
         const orderedNameAscendent = [...copyFilterNameAndAttack].sort(
@@ -174,72 +198,31 @@ const rootReducer = (state = initialState, action) => {
         const orderedAttackDescendent = [...copyFilterNameAndAttack].sort(
           (pokemonA, pokemonB) => pokemonB.attack - pokemonA.attack
         );
-        let tempOrderedByNameOrAttack = [];
 
         if (state.currentFilterNameAndAttack === "nameAscendent") {
-          tempOrderedByNameOrAttack = orderedNameAscendent;
+          tempPrevPokemons = orderedNameAscendent;
         } else if (state.currentFilterNameAndAttack === "nameDescendent") {
-          tempOrderedByNameOrAttack = orderedNameDecendent;
+          tempPrevPokemons = orderedNameDecendent;
         } else if (state.currentFilterNameAndAttack === "attackAscendent") {
-          tempOrderedByNameOrAttack = orderedAttackAscendent;
+          tempPrevPokemons = orderedAttackAscendent;
         } else if (state.currentFilterNameAndAttack === "attackDescendent") {
-          tempOrderedByNameOrAttack = orderedAttackDescendent;
+          tempPrevPokemons = orderedAttackDescendent;
         } else {
-          tempOrderedByNameOrAttack = copyFilterNameAndAttack;
+          tempPrevPokemons = copyFilterNameAndAttack;
         }
-
-        tempPrevPokemons = tempOrderedByNameOrAttack;
-      } else if (state.currentFilterOrigin !== "allPokemons") {
-        const pokemonsIdString = tempPokemons2.filter(
-          (pokemon) => typeof pokemon.id === "string"
-        );
-        const pokemonsIdNumber = tempPokemons2.filter(
-          (pokemon) => typeof pokemon.id === "number"
-        );
-
-        if (state.currentFilterTypes !== "allTypes") {
-          let filterTypesByApi = [...pokemonsIdNumber].filter((pokemon) =>
-            pokemon.types.includes(state.currentFilterTypes)
-          );
-          let filterTypesByDataBase = [...pokemonsIdNumber].filter((pokemon) =>
-            pokemon.types.includes(state.currentFilterTypes)
-          );
-          tempPrevPokemons =
-            state.currentFilterOrigin === "apiData"
-              ? filterTypesByApi
-              : filterTypesByDataBase;
-        }
-        tempPrevPokemons =
-          state.currentFilterOrigin === "apiData"
-            ? pokemonsIdString
-            : pokemonsIdNumber;
-      }
-      // else if(state.currentFilterOrigin !== "allPokemons" && state.currentFilterTypes !== "allTypes"){
-      //   const pokemonsIdString = tempPokemons2.filter(
-      //     (pokemon) => typeof pokemon.id === "string"
-      //   );
-      //   const pokemonsIdNumber = tempPokemons2.filter(
-      //     (pokemon) => typeof pokemon.id === "number"
-      //   );
-      //   let filterTypesByApi = pokemonsIdNumber.filter(pokemon => pokemon.types.includes(state.currentFilterTypes))
-      //   let filterTypesByDataBase = pokemonsIdString.filter(pokemon => pokemon.types.includes(state.currentFilterTypes))
-
-      //   tempPrevPokemons = state.currentFilterOrigin === 'API'
-      //   ? filterTypesByDataBase
-      //   : filterTypesByApi
-      // }
-      else {
+      } else {
         tempPrevPokemons = tempPokemons2;
       }
       const prevInitialPokemon = (prevCurrentPage - 1) * 12; //12
       const prevLastPokemon = prevCurrentPage * 12; //24
+      const tempSlicePrevPokemons = tempPrevPokemons.slice(
+        prevInitialPokemon,
+        prevLastPokemon
+      );
       return {
         ...state,
         currentPage: prevCurrentPage,
-        originalPokemons: tempPrevPokemons.slice(
-          prevInitialPokemon,
-          prevLastPokemon
-        ),
+        originalPokemons: tempSlicePrevPokemons,
       };
     case PAGE_NUMBER_BUTTON:
       const tempCurrentPageNumber = action.payload;
@@ -267,6 +250,33 @@ const rootReducer = (state = initialState, action) => {
                   pokemon.types.includes(state.currentFilterTypes)
                 );
         }
+      }
+      if (
+        state.currentFilterTypes !== "allTypes" &&
+        state.currentFilterNameAndAttack !== "orderedNormal"
+      ) {
+        let filteredByTypes = [...tempPokemonsNumber].filter((pokemon) =>
+          pokemon.types.includes(state.currentFilterTypes)
+        );
+        if (state.currentFilterNameAndAttack === "nameAscendent") {
+          tempViewPokemonsNumber = [...filteredByTypes].sort(
+            (pokemonA, pokemonB) => pokemonA.name.localeCompare(pokemonB.name)
+          );
+        } else if (state.currentFilterNameAndAttack === "nameDescendent") {
+          tempViewPokemonsNumber = [...filteredByTypes].sort(
+            (pokemonA, pokemonB) => pokemonB.name.localeCompare(pokemonA.name)
+          );
+        } else if (state.currentFilterNameAndAttack === "attackAscendent") {
+          tempViewPokemonsNumber = [...filteredByTypes].sort(
+            (pokemonA, pokemonB) => pokemonA.attack - pokemonB.attack
+          );
+        } else if (state.currentFilterNameAndAttack === "attackDescendent") {
+          tempViewPokemonsNumber = [...filteredByTypes].sort(
+            (pokemonA, pokemonB) => pokemonB.attack - pokemonA.attack
+          );
+        } else {
+          tempViewPokemonsNumber = [...filteredByTypes];
+        }
       } else if (state.currentFilterNameAndAttack !== "orderedNormal") {
         const copyFilterNameAndAttack = [...tempPokemonsNumber];
         const orderedNameAscendent = [...copyFilterNameAndAttack].sort(
@@ -281,53 +291,37 @@ const rootReducer = (state = initialState, action) => {
         const orderedAttackDescendent = [...copyFilterNameAndAttack].sort(
           (pokemonA, pokemonB) => pokemonB.attack - pokemonA.attack
         );
-        let tempOrderedByNameOrAttack = [];
 
         if (state.currentFilterNameAndAttack === "nameAscendent") {
-          tempOrderedByNameOrAttack = orderedNameAscendent;
+          tempViewPokemonsNumber = orderedNameAscendent;
         } else if (state.currentFilterNameAndAttack === "nameDescendent") {
-          tempOrderedByNameOrAttack = orderedNameDecendent;
+          tempViewPokemonsNumber = orderedNameDecendent;
         } else if (state.currentFilterNameAndAttack === "attackAscendent") {
-          tempOrderedByNameOrAttack = orderedAttackAscendent;
+          tempViewPokemonsNumber = orderedAttackAscendent;
         } else if (state.currentFilterNameAndAttack === "attackDescendent") {
-          tempOrderedByNameOrAttack = orderedAttackDescendent;
+          tempViewPokemonsNumber = orderedAttackDescendent;
         } else {
-          tempOrderedByNameOrAttack = copyFilterNameAndAttack;
+          tempViewPokemonsNumber = copyFilterNameAndAttack;
         }
-
-        tempViewPokemonsNumber = tempOrderedByNameOrAttack;
-      } else if (state.currentFilterOrigin !== "allPokemons") {
-        if (state.currentFilterTypes !== "allTypes") {
-          let filterTypesByApi = [...pokemonsIdNumberPage].filter((pokemon) =>
-            pokemon.types.includes(state.currentFilterTypes)
-          );
-          let filterTypesByDataBase = [...pokemonsIdStringPage].filter(
-            (pokemon) => pokemon.types.includes(state.currentFilterTypes)
-          );
-          tempViewPokemonsNumber =
-            state.currentFilterOrigin === "apiData"
-              ? filterTypesByApi
-              : filterTypesByDataBase;
-        }
-        tempViewPokemonsNumber =
-          state.currentFilterOrigin === "apiData"
-            ? pokemonsIdNumberPage
-            : pokemonsIdStringPage;
       } else {
         tempViewPokemonsNumber = tempPokemonsNumber;
       }
       const initialIndex = (tempCurrentPageNumber - 1) * 12;
       const tempInitialPokemonNumber = initialIndex;
       const tempLastPokemonNumber = initialIndex + 12;
-      console.log(tempViewPokemonsNumber);
+      const tempSlicePokemonsNumber = tempViewPokemonsNumber.slice(
+        tempInitialPokemonNumber,
+        tempLastPokemonNumber
+      );
 
+      console.log("----------currentOrder---------------");
+      console.log(state.currentFilterNameAndAttack);
+      console.log("--------tempViewPokemonsNumbe------------------");
+      console.log(tempViewPokemonsNumber);
       return {
         ...state,
         currentPage: tempCurrentPageNumber,
-        originalPokemons: tempViewPokemonsNumber.slice(
-          tempInitialPokemonNumber,
-          tempLastPokemonNumber
-        ),
+        originalPokemons: tempSlicePokemonsNumber,
       };
     case GET_POKEMON_BY_NAME:
       return {
@@ -391,10 +385,29 @@ const rootReducer = (state = initialState, action) => {
         tempFilteredByTypes = pokemonsIdNumber;
       }
 
+      if (state.currentFilterNameAndAttack !== "orderedNormal") {
+        if (state.currentFilterNameAndAttack === "nameAscendent") {
+          tempFilteredByTypes = tempFilteredByTypes.sort((pokemonA, pokemonB) =>
+            pokemonA.name.localeCompare(pokemonB.name)
+          );
+        } else if (state.currentFilterNameAndAttack === "nameDescendent") {
+          tempFilteredByTypes = tempFilteredByTypes.sort((pokemonA, pokemonB) =>
+            pokemonB.name.localeCompare(pokemonA.name)
+          );
+        } else if (state.currentFilterNameAndAttack === "attackAscendent") {
+          tempFilteredByTypes = tempFilteredByTypes.sort(
+            (pokemonA, pokemonB) => pokemonA.attack - pokemonB.attack
+          );
+        } else if (state.currentFilterNameAndAttack === "attackDescendent") {
+          tempFilteredByTypes = tempFilteredByTypes.sort(
+            (pokemonA, pokemonB) => pokemonB.attack - pokemonA.attack
+          );
+        }
+      }
+
       const tempPageByTypes = Math.ceil(tempFilteredByTypes.length / 12);
       const tempSlice = tempFilteredByTypes.slice(0, 12);
-      console.log("-------tempSlice---------");
-      console.log(tempSlice);
+
       return {
         ...state,
         originalPokemons: tempSlice,
@@ -451,37 +464,61 @@ const rootReducer = (state = initialState, action) => {
         currentFilterOrigin: action.payload,
       };
     case ORDERED_NAME_AND_ATTACK:
-      const copyFilterNameAndAttack = [...state.allPokemons];
-      const orderedNameAscendent = [...copyFilterNameAndAttack].sort(
+      const copyForOrdering = [...state.allPokemons];
+      const orderedNameAscendent = [...copyForOrdering].sort(
         (pokemonA, pokemonB) => pokemonA.name.localeCompare(pokemonB.name)
       );
-      const orderedNameDecendent = [...copyFilterNameAndAttack].sort(
+      const orderedNameDecendent = [...copyForOrdering].sort(
         (pokemonA, pokemonB) => pokemonB.name.localeCompare(pokemonA.name)
       );
-      const orderedAttackAscendent = [...copyFilterNameAndAttack].sort(
+      const orderedAttackAscendent = [...copyForOrdering].sort(
         (pokemonA, pokemonB) => pokemonA.attack - pokemonB.attack
       );
-      const orderedAttackDescendent = [...copyFilterNameAndAttack].sort(
+      const orderedAttackDescendent = [...copyForOrdering].sort(
         (pokemonA, pokemonB) => pokemonB.attack - pokemonA.attack
       );
-      let tempOrderedByNameOrAttack = [];
+      let tempSortedData = [];
 
       if (action.payload === "nameAscendent") {
-        tempOrderedByNameOrAttack = orderedNameAscendent;
+        tempSortedData = orderedNameAscendent;
       } else if (action.payload === "nameDescendent") {
-        tempOrderedByNameOrAttack = orderedNameDecendent;
+        tempSortedData = orderedNameDecendent;
       } else if (action.payload === "attackAscendent") {
-        tempOrderedByNameOrAttack = orderedAttackAscendent;
+        tempSortedData = orderedAttackAscendent;
       } else if (action.payload === "attackDescendent") {
-        tempOrderedByNameOrAttack = orderedAttackDescendent;
+        tempSortedData = orderedAttackDescendent;
       } else {
-        tempOrderedByNameOrAttack = copyFilterNameAndAttack;
+        tempSortedData = copyForOrdering;
       }
 
-      const tempPageNameOrAttack = Math.ceil(
-        tempOrderedByNameOrAttack.length / 12
-      );
-      const tempPaginatedOrdered = tempOrderedByNameOrAttack.slice(0, 12);
+      if (state.currentFilterTypes !== "allTypes") {
+        let filteredByTypes = copyForOrdering.filter((pokemon) =>
+          pokemon.types.includes(state.currentFilterTypes)
+        );
+        if (action.payload === "nameAscendent") {
+          tempSortedData = [...filteredByTypes].sort((pokemonA, pokemonB) =>
+            pokemonA.name.localeCompare(pokemonB.name)
+          );
+        } else if (action.payload === "nameDescendent") {
+          tempSortedData = [...filteredByTypes].sort((pokemonA, pokemonB) =>
+            pokemonB.name.localeCompare(pokemonA.name)
+          );
+        } else if (action.payload === "attackAscendent") {
+          tempSortedData = [...filteredByTypes].sort(
+            (pokemonA, pokemonB) => pokemonA.attack - pokemonB.attack
+          );
+        } else if (action.payload === "attackDescendent") {
+          tempSortedData = [...filteredByTypes].sort(
+            (pokemonA, pokemonB) => pokemonB.attack - pokemonA.attack
+          );
+        } else {
+          tempSortedData = [...filteredByTypes];
+        }
+      }
+
+      const tempPageNameOrAttack = Math.ceil(tempSortedData.length / 12);
+      const tempPaginatedOrdered = tempSortedData.slice(0, 12);
+      console.log(tempPaginatedOrdered);
       return {
         ...state,
         originalPokemons: tempPaginatedOrdered,
