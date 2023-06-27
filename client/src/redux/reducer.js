@@ -93,7 +93,62 @@ const rootReducer = (state = initialState, action) => {
         } else {
           tempViewPokemons = [...filteredByTypes];
         }
-      } else if (state.currentFilterNameAndAttack !== "orderedNormal") {
+      }
+
+      // if(state.currentFilterOrigin !== 'orderedNormal'){
+      //   const tempFilteredStringId = [...tempPokemons].filter(
+      //     (pokemon) => typeof pokemon.id === "string"
+      //   );
+      //   const tempFilteredNumberId = [...tempPokemons].filter(
+      //     (pokemon) => typeof pokemon.id === "number"
+      //   );
+
+      //   if(state.currentFilterOrigin === 'apiData'){
+      //     if (state.currentFilterNameAndAttack === "nameAscendent") {
+      //       tempViewPokemons = [...tempFilteredNumberId].sort((pokemonA, pokemonB) =>
+      //         pokemonA.name.localeCompare(pokemonB.name)
+      //       );
+      //     } else if (state.currentFilterNameAndAttack === "nameDescendent") {
+      //       tempViewPokemons = [...tempFilteredNumberId].sort((pokemonA, pokemonB) =>
+      //         pokemonB.name.localeCompare(pokemonA.name)
+      //       );
+      //     } else if (state.currentFilterNameAndAttack === "attackAscendent") {
+      //       tempViewPokemons = [...tempFilteredNumberId].sort(
+      //         (pokemonA, pokemonB) => pokemonA.attack - pokemonB.attack
+      //       );
+      //     } else if (state.currentFilterNameAndAttack === "attackDescendent") {
+      //       tempViewPokemons = [...tempFilteredNumberId].sort(
+      //         (pokemonA, pokemonB) => pokemonB.attack - pokemonA.attack
+      //       );
+      //     } else {
+      //       tempViewPokemons = [...tempFilteredNumberId];
+      //     }
+      //   }
+
+      //   if(state.currentFilterOrigin === 'dataBase'){
+      //     if (state.currentFilterNameAndAttack === "nameAscendent") {
+      //       tempViewPokemons = [...tempFilteredStringId].sort((pokemonA, pokemonB) =>
+      //         pokemonA.name.localeCompare(pokemonB.name)
+      //       );
+      //     } else if (state.currentFilterNameAndAttack === "nameDescendent") {
+      //       tempViewPokemons = [...tempFilteredStringId].sort((pokemonA, pokemonB) =>
+      //         pokemonB.name.localeCompare(pokemonA.name)
+      //       );
+      //     } else if (state.currentFilterNameAndAttack === "attackAscendent") {
+      //       tempViewPokemons = [...tempFilteredStringId].sort(
+      //         (pokemonA, pokemonB) => pokemonA.attack - pokemonB.attack
+      //       );
+      //     } else if (state.currentFilterNameAndAttack === "attackDescendent") {
+      //       tempViewPokemons = [...tempFilteredStringId].sort(
+      //         (pokemonA, pokemonB) => pokemonB.attack - pokemonA.attack
+      //       );
+      //     } else {
+      //       tempViewPokemons = [...tempFilteredStringId];
+      //     }
+      //   }
+      // }
+
+      if (state.currentFilterNameAndAttack !== "orderedNormal") {
         const orderedNameAscendent = [...tempPokemons].sort(
           (pokemonA, pokemonB) => pokemonA.name.localeCompare(pokemonB.name)
         );
@@ -184,7 +239,62 @@ const rootReducer = (state = initialState, action) => {
         } else {
           tempPrevPokemons = [...filteredByTypes];
         }
-      } else if (state.currentFilterNameAndAttack !== "orderedNormal") {
+      }
+
+      // if(state.currentFilterOrigin !== 'orderedNormal'){
+      //   const tempFilteredStringId = [...tempPokemons2].filter(
+      //     (pokemon) => typeof pokemon.id === "string"
+      //   );
+      //   const tempFilteredNumberId = [...tempPokemons2].filter(
+      //     (pokemon) => typeof pokemon.id === "number"
+      //   );
+
+      //   if(state.currentFilterOrigin === 'apiData'){
+      //     if (state.currentFilterNameAndAttack === "nameAscendent") {
+      //       tempPrevPokemons = [...tempFilteredNumberId].sort((pokemonA, pokemonB) =>
+      //         pokemonA.name.localeCompare(pokemonB.name)
+      //       );
+      //     } else if (state.currentFilterNameAndAttack === "nameDescendent") {
+      //       tempPrevPokemons = [...tempFilteredNumberId].sort((pokemonA, pokemonB) =>
+      //         pokemonB.name.localeCompare(pokemonA.name)
+      //       );
+      //     } else if (state.currentFilterNameAndAttack === "attackAscendent") {
+      //       tempPrevPokemons = [...tempFilteredNumberId].sort(
+      //         (pokemonA, pokemonB) => pokemonA.attack - pokemonB.attack
+      //       );
+      //     } else if (state.currentFilterNameAndAttack === "attackDescendent") {
+      //       tempPrevPokemons = [...tempFilteredNumberId].sort(
+      //         (pokemonA, pokemonB) => pokemonB.attack - pokemonA.attack
+      //       );
+      //     } else {
+      //       tempPrevPokemons = [...tempFilteredNumberId];
+      //     }
+      //   }
+
+      //   if(state.currentFilterOrigin === 'dataBase'){
+      //     if (state.currentFilterNameAndAttack === "nameAscendent") {
+      //       tempPrevPokemons = [...tempFilteredStringId].sort((pokemonA, pokemonB) =>
+      //         pokemonA.name.localeCompare(pokemonB.name)
+      //       );
+      //     } else if (state.currentFilterNameAndAttack === "nameDescendent") {
+      //       tempPrevPokemons = [...tempFilteredStringId].sort((pokemonA, pokemonB) =>
+      //         pokemonB.name.localeCompare(pokemonA.name)
+      //       );
+      //     } else if (state.currentFilterNameAndAttack === "attackAscendent") {
+      //       tempPrevPokemons = [...tempFilteredStringId].sort(
+      //         (pokemonA, pokemonB) => pokemonA.attack - pokemonB.attack
+      //       );
+      //     } else if (state.currentFilterNameAndAttack === "attackDescendent") {
+      //       tempPrevPokemons = [...tempFilteredStringId].sort(
+      //         (pokemonA, pokemonB) => pokemonB.attack - pokemonA.attack
+      //       );
+      //     } else {
+      //       tempPrevPokemons = [...tempFilteredStringId];
+      //     }
+      //   }
+      // }
+
+      if (state.currentFilterNameAndAttack !== "orderedNormal") {
         const copyFilterNameAndAttack = [...tempPokemons2];
         const orderedNameAscendent = [...copyFilterNameAndAttack].sort(
           (pokemonA, pokemonB) => pokemonA.name.localeCompare(pokemonB.name)
@@ -227,57 +337,168 @@ const rootReducer = (state = initialState, action) => {
     case PAGE_NUMBER_BUTTON:
       const tempCurrentPageNumber = action.payload;
       const tempPokemonsNumber = [...state.allPokemons];
-      const pokemonsIdStringPage = tempPokemonsNumber.filter(
+      const pokemonsDataBase = tempPokemonsNumber.filter(
         (pokemon) => typeof pokemon.id === "string"
       );
-      const pokemonsIdNumberPage = tempPokemonsNumber.filter(
+      const pokemonsApiData = tempPokemonsNumber.filter(
         (pokemon) => typeof pokemon.id === "number"
       );
       let tempViewPokemonsNumber = [];
 
       if (state.currentFilterTypes !== "allTypes") {
-        tempViewPokemonsNumber = tempPokemonsNumber.filter((pokemon) =>
+        tempViewPokemonsNumber = [...tempPokemonsNumber].filter((pokemon) =>
           pokemon.types.includes(state.currentFilterTypes)
+        );
+        if (state.currentFilterOrigin !== "allPokemons") {
+          if (state.currentFilterOrigin === "apiData") {
+            tempViewPokemonsNumber = [...pokemonsApiData].filter((pokemon) =>
+              pokemon.types.includes(state.currentFilterTypes)
+            );
+          } else if (state.currentFilterOrigin === "dataBase") {
+            tempViewPokemonsNumber = [...pokemonsDataBase].filter((pokemon) =>
+              pokemon.types.includes(state.currentFilterTypes)
+            );
+          } else {
+            tempViewPokemonsNumber = tempPokemonsNumber;
+          }
+          if (state.currentFilterNameAndAttack !== "orderedNormal") {
+            const filteredTypesByApi = pokemonsApiData.filter((pokemon) =>
+              pokemon.types.includes(state.currentFilterTypes)
+            );
+            const filteredTypesByDb = pokemonsDataBase.filter((pokemon) =>
+              pokemon.types.includes(state.currentFilterTypes)
+            );
+            if (state.currentFilterOrigin === "apiData") {
+              if (state.currentFilterNameAndAttack === "nameAscendent") {
+                tempViewPokemonsNumber = [...filteredTypesByApi].sort(
+                  (pokemonA, pokemonB) =>
+                    pokemonA.name.localeCompare(pokemonB.name)
+                );
+              } else if (
+                state.currentFilterNameAndAttack === "nameDescendent"
+              ) {
+                tempViewPokemonsNumber = [...filteredTypesByApi].sort(
+                  (pokemonA, pokemonB) =>
+                    pokemonB.name.localeCompare(pokemonA.name)
+                );
+              } else if (
+                state.currentFilterNameAndAttack === "attackAscendent"
+              ) {
+                tempViewPokemonsNumber = [...filteredTypesByApi].sort(
+                  (pokemonA, pokemonB) => pokemonA.attack - pokemonB.attack
+                );
+              } else if (
+                state.currentFilterNameAndAttack === "attackDescendent"
+              ) {
+                tempViewPokemonsNumber = [...filteredTypesByApi].sort(
+                  (pokemonA, pokemonB) => pokemonB.attack - pokemonA.attack
+                );
+              } else {
+                tempViewPokemonsNumber = [...filteredTypesByApi];
+              }
+            }
+
+            if (state.currentFilterOrigin === "dataBase") {
+              if (state.currentFilterNameAndAttack === "nameAscendent") {
+                tempViewPokemonsNumber = [...filteredTypesByDb].sort(
+                  (pokemonA, pokemonB) =>
+                    pokemonA.name.localeCompare(pokemonB.name)
+                );
+              } else if (
+                state.currentFilterNameAndAttack === "nameDescendent"
+              ) {
+                tempViewPokemonsNumber = [...filteredTypesByDb].sort(
+                  (pokemonA, pokemonB) =>
+                    pokemonB.name.localeCompare(pokemonA.name)
+                );
+              } else if (
+                state.currentFilterNameAndAttack === "attackAscendent"
+              ) {
+                tempViewPokemonsNumber = [...filteredTypesByDb].sort(
+                  (pokemonA, pokemonB) => pokemonA.attack - pokemonB.attack
+                );
+              } else if (
+                state.currentFilterNameAndAttack === "attackDescendent"
+              ) {
+                tempViewPokemonsNumber = [...filteredTypesByDb].sort(
+                  (pokemonA, pokemonB) => pokemonB.attack - pokemonA.attack
+                );
+              } else {
+                tempViewPokemonsNumber = [...filteredTypesByDb];
+              }
+            }
+          }
+        }
+      } else if (state.currentFilterTypes === "allTypes") {
+        const pokemonsDataBase = tempPokemonsNumber.filter(
+          (pokemon) => typeof pokemon.id === "string"
+        );
+        const pokemonsApiData = tempPokemonsNumber.filter(
+          (pokemon) => typeof pokemon.id === "number"
         );
 
-        if (state.currentFilterOrigin !== "allPokemons") {
-          tempViewPokemonsNumber =
-            state.currentFilterOrigin === "apiData"
-              ? [...pokemonsIdNumberPage].filter((pokemon) =>
-                  pokemon.types.includes(state.currentFilterTypes)
-                )
-              : [...pokemonsIdStringPage].filter((pokemon) =>
-                  pokemon.types.includes(state.currentFilterTypes)
-                );
+        if (state.currentFilterOrigin === "apiData") {
+          tempViewPokemonsNumber = [...pokemonsApiData];
+        } else if (state.currentFilterOrigin === "dataBase") {
+          tempViewPokemonsNumber = [...pokemonsDataBase];
+        } else {
+          tempViewPokemonsNumber = tempPokemonsNumber;
+        }
+
+        if (state.currentFilterNameAndAttack !== "orderedNormal") {
+          if (state.currentFilterOrigin === "apiData") {
+            if (state.currentFilterNameAndAttack === "nameAscendent") {
+              tempViewPokemonsNumber = [...pokemonsApiData].sort(
+                (pokemonA, pokemonB) =>
+                  pokemonA.name.localeCompare(pokemonB.name)
+              );
+            } else if (state.currentFilterNameAndAttack === "nameDescendent") {
+              tempViewPokemonsNumber = [...pokemonsApiData].sort(
+                (pokemonA, pokemonB) =>
+                  pokemonB.name.localeCompare(pokemonA.name)
+              );
+            } else if (state.currentFilterNameAndAttack === "attackAscendent") {
+              tempViewPokemonsNumber = [...pokemonsApiData].sort(
+                (pokemonA, pokemonB) => pokemonA.attack - pokemonB.attack
+              );
+            } else if (
+              state.currentFilterNameAndAttack === "attackDescendent"
+            ) {
+              tempViewPokemonsNumber = [...pokemonsApiData].sort(
+                (pokemonA, pokemonB) => pokemonB.attack - pokemonA.attack
+              );
+            } else {
+              tempViewPokemonsNumber = pokemonsApiData;
+            }
+          } else if (state.currentFilterOrigin === "dataBase") {
+            if (state.currentFilterNameAndAttack === "nameAscendent") {
+              tempViewPokemonsNumber = [...pokemonsDataBase].sort(
+                (pokemonA, pokemonB) =>
+                  pokemonA.name.localeCompare(pokemonB.name)
+              );
+            } else if (state.currentFilterNameAndAttack === "nameDescendent") {
+              tempViewPokemonsNumber = [...pokemonsDataBase].sort(
+                (pokemonA, pokemonB) =>
+                  pokemonB.name.localeCompare(pokemonA.name)
+              );
+            } else if (state.currentFilterNameAndAttack === "attackAscendent") {
+              tempViewPokemonsNumber = [...pokemonsDataBase].sort(
+                (pokemonA, pokemonB) => pokemonA.attack - pokemonB.attack
+              );
+            } else if (
+              state.currentFilterNameAndAttack === "attackDescendent"
+            ) {
+              tempViewPokemonsNumber = [...pokemonsDataBase].sort(
+                (pokemonA, pokemonB) => pokemonB.attack - pokemonA.attack
+              );
+            } else {
+              tempViewPokemonsNumber = pokemonsDataBase;
+            }
+          }
         }
       }
-      if (
-        state.currentFilterTypes !== "allTypes" &&
-        state.currentFilterNameAndAttack !== "orderedNormal"
-      ) {
-        let filteredByTypes = [...tempPokemonsNumber].filter((pokemon) =>
-          pokemon.types.includes(state.currentFilterTypes)
-        );
-        if (state.currentFilterNameAndAttack === "nameAscendent") {
-          tempViewPokemonsNumber = [...filteredByTypes].sort(
-            (pokemonA, pokemonB) => pokemonA.name.localeCompare(pokemonB.name)
-          );
-        } else if (state.currentFilterNameAndAttack === "nameDescendent") {
-          tempViewPokemonsNumber = [...filteredByTypes].sort(
-            (pokemonA, pokemonB) => pokemonB.name.localeCompare(pokemonA.name)
-          );
-        } else if (state.currentFilterNameAndAttack === "attackAscendent") {
-          tempViewPokemonsNumber = [...filteredByTypes].sort(
-            (pokemonA, pokemonB) => pokemonA.attack - pokemonB.attack
-          );
-        } else if (state.currentFilterNameAndAttack === "attackDescendent") {
-          tempViewPokemonsNumber = [...filteredByTypes].sort(
-            (pokemonA, pokemonB) => pokemonB.attack - pokemonA.attack
-          );
-        } else {
-          tempViewPokemonsNumber = [...filteredByTypes];
-        }
-      } else if (state.currentFilterNameAndAttack !== "orderedNormal") {
+
+      else if (state.currentFilterNameAndAttack !== "orderedNormal") {
         const copyFilterNameAndAttack = [...tempPokemonsNumber];
         const orderedNameAscendent = [...copyFilterNameAndAttack].sort(
           (pokemonA, pokemonB) => pokemonA.name.localeCompare(pokemonB.name)
@@ -313,11 +534,7 @@ const rootReducer = (state = initialState, action) => {
         tempInitialPokemonNumber,
         tempLastPokemonNumber
       );
-
-      console.log("----------currentOrder---------------");
-      console.log(state.currentFilterNameAndAttack);
-      console.log("--------tempViewPokemonsNumbe------------------");
-      console.log(tempViewPokemonsNumber);
+      
       return {
         ...state,
         currentPage: tempCurrentPageNumber,
@@ -453,9 +670,7 @@ const rootReducer = (state = initialState, action) => {
 
       const tempPageByOrigin = Math.ceil(tempFilteredByOrigin.length / 12);
       const tempSliceOrigin = tempFilteredByOrigin.slice(0, 12);
-      console.log(tempSliceOrigin);
-      console.log("-----state.currentorigin-----");
-      console.log(state.currentFilterOrigin);
+
       return {
         ...state,
         originalPokemons: tempSliceOrigin,
@@ -516,9 +731,67 @@ const rootReducer = (state = initialState, action) => {
         }
       }
 
+      if (state.currentFilterOrigin !== "allPokemons") {
+        const tempFilteredStringId = [...copyForOrdering].filter(
+          (pokemon) => typeof pokemon.id === "string"
+        );
+        const tempFilteredNumberId = [...copyForOrdering].filter(
+          (pokemon) => typeof pokemon.id === "number"
+        );
+        const filteredTypesByApi = tempFilteredNumberId.filter((pokemon) =>
+          pokemon.types.includes(state.currentFilterTypes)
+        );
+        const filteredTypesByDb = tempFilteredStringId.filter((pokemon) =>
+          pokemon.types.includes(state.currentFilterTypes)
+        );
+
+        if (state.currentFilterOrigin === "apiData") {
+          if (action.payload === "nameAscendent") {
+            tempSortedData = [...filteredTypesByApi].sort(
+              (pokemonA, pokemonB) => pokemonA.name.localeCompare(pokemonB.name)
+            );
+          } else if (action.payload === "nameDescendent") {
+            tempSortedData = [...filteredTypesByApi].sort(
+              (pokemonA, pokemonB) => pokemonB.name.localeCompare(pokemonA.name)
+            );
+          } else if (action.payload === "attackAscendent") {
+            tempSortedData = [...filteredTypesByApi].sort(
+              (pokemonA, pokemonB) => pokemonA.attack - pokemonB.attack
+            );
+          } else if (action.payload === "attackDescendent") {
+            tempSortedData = [...filteredTypesByApi].sort(
+              (pokemonA, pokemonB) => pokemonB.attack - pokemonA.attack
+            );
+          } else {
+            tempSortedData = filteredTypesByApi;
+          }
+        }
+
+        if (state.currentFilterOrigin === "dataBase") {
+          if (action.payload === "nameAscendent") {
+            tempSortedData = [...filteredTypesByDb].sort((pokemonA, pokemonB) =>
+              pokemonA.name.localeCompare(pokemonB.name)
+            );
+          } else if (action.payload === "nameDescendent") {
+            tempSortedData = [...filteredTypesByDb].sort((pokemonA, pokemonB) =>
+              pokemonB.name.localeCompare(pokemonA.name)
+            );
+          } else if (action.payload === "attackAscendent") {
+            tempSortedData = [...filteredTypesByDb].sort(
+              (pokemonA, pokemonB) => pokemonA.attack - pokemonB.attack
+            );
+          } else if (action.payload === "attackDescendent") {
+            tempSortedData = [...filteredTypesByDb].sort(
+              (pokemonA, pokemonB) => pokemonB.attack - pokemonA.attack
+            );
+          } else {
+            tempSortedData = filteredTypesByDb;
+          }
+        }
+      }
+
       const tempPageNameOrAttack = Math.ceil(tempSortedData.length / 12);
       const tempPaginatedOrdered = tempSortedData.slice(0, 12);
-      console.log(tempPaginatedOrdered);
       return {
         ...state,
         originalPokemons: tempPaginatedOrdered,
